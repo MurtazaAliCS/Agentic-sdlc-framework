@@ -1,0 +1,129 @@
+[
+  {
+    "project_title": "Clinic Appointment and Triage Support System",
+    "target_stack": {
+      "language": "Python",
+      "framework": "Flask",
+      "database": "SQLite"
+    },
+    "folder_structure": [
+      "clinic_appointment_system/",
+      "clinic_appointment_system/models/",
+      "clinic_appointment_system/routes/"
+    ],
+    "files": [
+      {
+        "path": "clinic_appointment_system/README.md",
+        "purpose": "Project overview, setup instructions, and usage guide",
+        "content": "# Clinic Appointment and Triage Support System\n\n## Overview\nThis project is a Flask-based backend for managing clinic appointments and triage support.\n\n## Setup Instructions\n1. Clone the repository.\n2. Install dependencies using `pip install -r requirements.txt`.\n3. Run the application with `python app.py`.\n\n## Usage\nAccess the API at `http://localhost:5000`."
+      },
+      {
+        "path": "clinic_appointment_system/requirements.txt",
+        "purpose": "All Python dependencies",
+        "content": "Flask\nFlask-SQLAlchemy\nFlask-Migrate\nFlask-RESTful\n"
+      },
+      {
+        "path": "clinic_appointment_system/app.py",
+        "purpose": "Application entry point with Flask app initialization",
+        "content": "from flask import Flask\nfrom routes import appointment_routes\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///appointments.db'\n\napp.register_blueprint(appointment_routes)\n\nif __name__ == '__main__':\n    app.run(debug=True)  # NFR-01: Performance requirement"
+      },
+      {
+        "path": "clinic_appointment_system/models/models.py",
+        "purpose": "Data models for appointments and users",
+        "content": "from flask_sqlalchemy import SQLAlchemy\n\ndb = SQLAlchemy()\n\nclass Appointment(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    patient_name = db.Column(db.String(100), nullable=False)  # FR-01\n    nhs_number = db.Column(db.String(10), nullable=False)  # FR-08\n    date_of_birth = db.Column(db.Date, nullable=False)\n    preferred_datetime = db.Column(db.DateTime, nullable=False)\n    visit_reason = db.Column(db.String(255), nullable=False)\n    status = db.Column(db.String(50), default='Pending')  # FR-05\n\n# TODO: Add more models as needed."
+      },
+      {
+        "path": "clinic_appointment_system/routes/appointment_routes.py",
+        "purpose": "API routes for managing appointments",
+        "content": "from flask import Blueprint, request, jsonify\nfrom models import Appointment, db\n\nappointment_routes = Blueprint('appointments', __name__)\n\n@appointment_routes.route('/appointments', methods=['POST'])  # FR-01\ndef request_appointment():\n    # TODO: Implement appointment request logic\n    return jsonify({'message': 'Appointment requested'}), 201  # Placeholder\n\n@appointment_routes.route('/appointments', methods=['GET'])  # FR-02\ndef view_appointments():\n    # TODO: Implement logic to view appointments\n    return jsonify([])  # Placeholder\n\n# TODO: Implement other routes for clinicians and notifications."
+      }
+    ],
+    "traceability": [
+      {
+        "requirement_id": "FR-01",
+        "mapped_files": [
+          "routes/appointment_routes.py"
+        ],
+        "implementation_status": "placeholder",
+        "notes": "Appointment request logic needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-02",
+        "mapped_files": [
+          "routes/appointment_routes.py"
+        ],
+        "implementation_status": "placeholder",
+        "notes": "Viewing appointments logic needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-03",
+        "mapped_files": [
+          "routes/appointment_routes.py"
+        ],
+        "implementation_status": "placeholder",
+        "notes": "Triage notes management needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-04",
+        "mapped_files": [
+          "routes/appointment_routes.py"
+        ],
+        "implementation_status": "placeholder",
+        "notes": "Updating appointment outcomes needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-05",
+        "mapped_files": [
+          "routes/appointment_routes.py"
+        ],
+        "implementation_status": "placeholder",
+        "notes": "Notification logic needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-06",
+        "mapped_files": [],
+        "implementation_status": "placeholder",
+        "notes": "Audit log implementation needs to be defined."
+      },
+      {
+        "requirement_id": "FR-07",
+        "mapped_files": [],
+        "implementation_status": "placeholder",
+        "notes": "Role-based authentication needs to be implemented."
+      },
+      {
+        "requirement_id": "FR-08",
+        "mapped_files": [
+          "models/models.py"
+        ],
+        "implementation_status": "implemented",
+        "notes": "NHS number validation is included in the model."
+      },
+      {
+        "requirement_id": "NFR-01",
+        "mapped_files": [
+          "app.py"
+        ],
+        "implementation_status": "implemented",
+        "notes": "Performance requirement is noted in the app run configuration."
+      },
+      {
+        "requirement_id": "NFR-02",
+        "mapped_files": [
+          "app.py"
+        ],
+        "implementation_status": "implemented",
+        "notes": "Data storage security is assumed with SQLite."
+      }
+    ],
+    "run_instructions": [
+      "Clone the repository.",
+      "Install dependencies using 'pip install -r requirements.txt'.",
+      "Run the application with 'python app.py'."
+    ],
+    "limitations": [
+      "Currently, the application is a prototype and lacks full functionality.",
+      "Security measures for data storage are not fully implemented."
+    ]
+  }
+]

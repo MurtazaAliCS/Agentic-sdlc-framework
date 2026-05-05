@@ -1,0 +1,110 @@
+[
+  {
+    "schema_version": "1.0",
+    "project_title": "An Agentic AI Framework for Automating the Software Development Lifecycle",
+    "actors": [
+      "Student",
+      "Staff User"
+    ],
+    "functional_requirements": [
+      {
+        "id": "FR-01",
+        "statement": "Students can create a support ticket with a title, description, and category.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Student can submit a ticket with all required fields.",
+          "System rejects empty titles or descriptions."
+        ]
+      },
+      {
+        "id": "FR-02",
+        "statement": "Students can view a list of their tickets and current status.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Student can see ticket list with status updates."
+        ]
+      },
+      {
+        "id": "FR-03",
+        "statement": "Staff users can view all support tickets.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Staff user can access all submitted tickets."
+        ]
+      },
+      {
+        "id": "FR-04",
+        "statement": "Staff users can assign tickets to themselves.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Staff user can assign and see assigned tickets."
+        ]
+      },
+      {
+        "id": "FR-05",
+        "statement": "Staff users can add internal notes to a ticket.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Staff user can add and view notes on a ticket."
+        ]
+      },
+      {
+        "id": "FR-06",
+        "statement": "Staff users can update the status of tickets.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Staff user can change status to In Progress or Resolved."
+        ]
+      },
+      {
+        "id": "FR-07",
+        "statement": "Students receive a notification when ticket status changes.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Student is notified of status change."
+        ]
+      },
+      {
+        "id": "FR-08",
+        "statement": "Basic authentication is required for all users.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "User provides valid credentials to access the system."
+        ]
+      }
+    ],
+    "non_functional_requirements": [
+      {
+        "id": "NFR-01",
+        "category": "Logging",
+        "statement": "Key actions must be logged in the system."
+      },
+      {
+        "id": "NFR-02",
+        "category": "Usability",
+        "statement": "The system should have a user-friendly interface."
+      }
+    ],
+    "assumptions": [
+      "Students and staff users already have login credentials.",
+      "Notifications are sent via email."
+    ],
+    "clarification_questions": [
+      "What specific actions need to be logged?",
+      "What platform will notifications be sent through? Email or in-app?"
+    ],
+    "glossary": [
+      {
+        "term": "Ticket",
+        "definition": "A support request created by a student."
+      },
+      {
+        "term": "Notification",
+        "definition": "An alert sent to the user about changes to a ticket."
+      }
+    ],
+    "generated_at": "2026-01-08T10:43:36.575Z",
+    "agent": "Requirements Analysis Agent (UC-A1-01)",
+    "prototype_stack": "n8n + Function nodes + OpenAI (AgentKit-extensible)"
+  }
+]

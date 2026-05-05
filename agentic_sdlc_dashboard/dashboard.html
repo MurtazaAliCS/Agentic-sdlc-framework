@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agentic SDLC Pipeline Dashboard</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7fb; margin: 0; padding: 30px; color: #1f2937; }
+    h1 { margin-bottom: 5px; color: #0f172a; }
+    .subtitle { color: #475569; margin-bottom: 25px; }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea { height: 90px; }
+
+    button {
+      padding: 10px 20px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    button:hover { background: #1e40af; }
+    .secondary-button { background: #0f172a; }
+    .secondary-button:hover { background: #334155; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-left: 5px solid #2563eb;
+    }
+
+    .card h2 { margin-top: 0; font-size: 18px; color: #1e3a8a; }
+    .metric { font-size: 28px; font-weight: bold; margin-top: 8px; }
+
+    .status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 8px;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .pipeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 25px 0;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .step {
+      text-align: center;
+      background: #dbeafe;
+      padding: 14px;
+      border-radius: 10px;
+      width: 150px;
+      font-weight: bold;
+      color: #1e40af;
+    }
+
+    .arrow { font-size: 24px; color: #64748b; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th { background: #1e3a8a; color: white; }
+
+    .implemented { color: #15803d; font-weight: bold; }
+    .partial { color: #ca8a04; font-weight: bold; }
+    .missing { color: #dc2626; font-weight: bold; }
+
+    .summary {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+      border-left: 5px solid #2563eb;
+    }
+
+    .summary h2 { color: #1e3a8a; margin-top: 0; }
+    .footer { margin-top: 20px; font-size: 13px; color: #64748b; }
+  </style>
+</head>
+
+<body>
+
+<h1>Agentic SDLC Pipeline Dashboard</h1>
+<p class="subtitle">Dynamic dashboard connected to the Agentic SDLC orchestration workflow.</p>
+
+<input id="projectTitle" value="Student Helpdesk System" placeholder="Enter project title...">
+
+<textarea id="requirements" placeholder="Enter system requirements here...">We need a simple student helpdesk system. Students should create support tickets with title, description and category. Staff should view all tickets, assign tickets, add notes and update status. Students should receive notifications when ticket status changes. Basic authentication is required.</textarea>
+
+<button onclick="runPipeline()">Run Pipeline</button>
+<button class="secondary-button" onclick="downloadA4Json()">Download Full A4 JSON</button>
+
+<div class="grid">
+  <div class="card">
+    <h2>Scenario</h2>
+    <div id="scenario" class="metric">Student Helpdesk</div>
+  </div>
+
+  <div class="card">
+    <h2>Dashboard Execution Time</h2>
+    <div id="execution" class="metric">Ready</div>
+  </div>
+
+  <div class="card">
+    <h2>Deployment Readiness</h2>
+    <span id="deployment" class="status">Not executed</span>
+  </div>
+</div>
+
+<div class="pipeline">
+  <div class="step">A1<br>Requirements</div>
+  <div class="arrow">→</div>
+  <div class="step">A2<br>Code Generation</div>
+  <div class="arrow">→</div>
+  <div class="step">A3<br>Validation</div>
+  <div class="arrow">→</div>
+  <div class="step">A6<br>Deployment</div>
+  <div class="arrow">→</div>
+  <div class="step">A4<br>Aggregation</div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Agent</th>
+      <th>Role</th>
+      <th>Live Execution Time</th>
+      <th>Execution Status</th>
+    </tr>
+  </thead>
+  <tbody id="agentTable">
+    <tr><td>A1</td><td>Requirements Analysis</td><td>-</td><td>Not executed</td></tr>
+    <tr><td>A2</td><td>Code Generation</td><td>-</td><td>Not executed</td></tr>
+    <tr><td>A3</td><td>Validation</td><td>-</td><td>Not executed</td></tr>
+    <tr><td>A6</td><td>Deployment Analysis</td><td>-</td><td>Not executed</td></tr>
+    <tr><td>A4</td><td>Orchestration and Aggregation</td><td>-</td><td>Not executed</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Requirement Status</th>
+      <th>Count / Observation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="implemented">Implemented</td>
+      <td id="implementedText">Awaiting pipeline execution</td>
+    </tr>
+    <tr>
+      <td class="partial">Partial</td>
+      <td id="partialText">Awaiting pipeline execution</td>
+    </tr>
+    <tr>
+      <td class="missing">Missing</td>
+      <td id="missingText">Awaiting pipeline execution</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="summary">
+  <h2>A4 Output Summary</h2>
+  <p><strong>Pipeline Status:</strong> <span id="pipelineStatus">Ready</span></p>
+  <p><strong>Agent Execution Status:</strong> <span id="agentStatus">Not executed</span></p>
+  <p><strong>Deployment Readiness:</strong> <span id="summaryDeployment">Not executed</span></p>
+  <p><strong>Overall Assessment:</strong> <span id="overallAssessment">Awaiting pipeline execution.</span></p>
+  <p><strong>Full Output:</strong> Available using the “Download Full A4 JSON” button.</p>
+</div>
+
+<div class="footer">
+  Dashboard integrated with n8n workflow for real-time execution. Agent-level timings display when returned by A4; otherwise they should be verified through n8n execution logs.
+</div>
+
+<script>
+let latestA4Output = null;
+
+function formatTime(value) {
+  if (value === undefined || value === null || value === "" || value === "NaN") return "-";
+
+  if (typeof value === "number") {
+    return value.toFixed(2) + "s";
+  }
+
+  const text = String(value).trim();
+
+  if (text.endsWith("s")) return text;
+
+  const numeric = Number(text);
+  if (!Number.isNaN(numeric)) {
+    return numeric.toFixed(2) + "s";
+  }
+
+  return text;
+}
+
+function extractRawOutput(data) {
+  if (Array.isArray(data)) return data[0];
+  if (data && Array.isArray(data.raw_output)) return data.raw_output[0];
+  if (data && data.raw_output) return data.raw_output;
+  return data;
+}
+
+function getExecutionTimes(raw, data) {
+  return raw?.execution_times || data?.execution_times || data?.raw_output?.[0]?.execution_times || {};
+}
+
+async function runPipeline() {
+  const input = document.getElementById("requirements").value;
+  const projectTitleInput = document.getElementById("projectTitle").value || "Dynamic Agentic SDLC Scenario";
+
+  if (!input.trim()) {
+    alert("Enter requirements first");
+    return;
+  }
+
+  document.getElementById("execution").innerText = "Running...";
+  document.getElementById("pipelineStatus").innerText = "Running...";
+  document.getElementById("agentStatus").innerText = "Running...";
+  document.getElementById("overallAssessment").innerText = "Pipeline execution in progress...";
+
+  const dashboardStartTime = performance.now();
+
+  try {
+    const response = await fetch("https://murtazaalics.app.n8n.cloud/webhook/agentic-sdlc-dashboard-run", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        project_title: projectTitleInput,
+        requirements_text: input
+      })
+    });
+
+    const data = await response.json();
+
+    const dashboardEndTime = performance.now();
+    const dashboardSeconds = ((dashboardEndTime - dashboardStartTime) / 1000).toFixed(2) + "s";
+
+    latestA4Output = data;
+
+    console.log("FULL A4 / DASHBOARD RESPONSE:", data);
+
+    const raw = extractRawOutput(data);
+
+    const resolvedProjectTitle =
+      raw?.original_input?.project_title ||
+      raw?.requirements_output?.project_title ||
+      raw?.code_generation_output?.project_title ||
+      raw?.validation_output?.project_title ||
+      projectTitleInput;
+
+    const validation = raw?.validation_output || {};
+    const coverage = validation.requirement_coverage || [];
+
+    const implemented = coverage.filter(r => String(r.status).toLowerCase() === "implemented").length;
+    const partial = coverage.filter(r => String(r.status).toLowerCase() === "partial").length;
+    const missing = coverage.filter(r => String(r.status).toLowerCase() === "missing").length;
+
+    const deploymentReadiness =
+      raw?.deployment_output?.deployment_status ||
+      data?.deployment_status ||
+      "UNKNOWN";
+
+    const times = getExecutionTimes(raw, data);
+
+    const a1Time = formatTime(times.A1);
+    const a2Time = formatTime(times.A2);
+    const a3Time = formatTime(times.A3);
+    const a6Time = formatTime(times.A6);
+    const a4Time = formatTime(times.A4 || raw?.total_execution_time || data?.total_execution_time);
+
+    document.getElementById("scenario").innerText = resolvedProjectTitle;
+    document.getElementById("execution").innerText = dashboardSeconds;
+    document.getElementById("pipelineStatus").innerText = "Completed";
+    document.getElementById("agentStatus").innerText = "A1, A2, A3, A6, and A4 completed successfully";
+
+    document.getElementById("deployment").innerText = deploymentReadiness;
+    document.getElementById("summaryDeployment").innerText = deploymentReadiness;
+
+    document.getElementById("overallAssessment").innerText =
+      validation.overall_assessment ||
+      validation.summary ||
+      "Pipeline executed successfully. Full output available using the download button.";
+
+    document.getElementById("implementedText").innerText =
+      implemented + " requirement(s) implemented";
+
+    document.getElementById("partialText").innerText =
+      partial + " requirement(s) partially implemented";
+
+    document.getElementById("missingText").innerText =
+      missing + " requirement(s) missing";
+
+    document.getElementById("agentTable").innerHTML = `
+      <tr>
+        <td>A1</td>
+        <td>Requirements Analysis</td>
+        <td>${a1Time}</td>
+        <td class="implemented">Completed</td>
+      </tr>
+      <tr>
+        <td>A2</td>
+        <td>Code Generation</td>
+        <td>${a2Time}</td>
+        <td class="implemented">Completed</td>
+      </tr>
+      <tr>
+        <td>A3</td>
+        <td>Validation</td>
+        <td>${a3Time}</td>
+        <td class="implemented">Completed</td>
+      </tr>
+      <tr>
+        <td>A6</td>
+        <td>Deployment Analysis</td>
+        <td>${a6Time}</td>
+        <td class="implemented">Completed</td>
+      </tr>
+      <tr>
+        <td>A4</td>
+        <td>Orchestration and Aggregation</td>
+        <td>${a4Time !== "-" ? a4Time : dashboardSeconds}</td>
+        <td class="implemented">Completed</td>
+      </tr>
+    `;
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById("execution").innerText = "Error";
+    document.getElementById("pipelineStatus").innerText = "Error";
+    document.getElementById("agentStatus").innerText = "Execution failed";
+    document.getElementById("overallAssessment").innerText = "Execution failed. Check n8n execution logs or browser console.";
+    alert("Error connecting to pipeline. Check n8n execution logs or browser console.");
+  }
+}
+
+function downloadA4Json() {
+  if (!latestA4Output) {
+    alert("Run the pipeline first before downloading the A4 output.");
+    return;
+  }
+
+  const jsonString = JSON.stringify(latestA4Output, null, 2);
+  const blob = new Blob([jsonString], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "A4_Full_Orchestration_Output.json";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>

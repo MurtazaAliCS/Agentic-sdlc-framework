@@ -1,0 +1,11 @@
+[
+  {
+    "stack": "Python Flask",
+    "dockerfile": "FROM python:3.11-slim\nWORKDIR /app\nCOPY . /app\nRUN pip install --no-cache-dir -r requirements.txt\nEXPOSE 5000\nCMD [\"python\", \"app.py\"]",
+    "run_instructions": "pip install -r requirements.txt && python app.py",
+    "deployment_status": "PARTIAL",
+    "issues": [
+      "Database configuration for SQLite not specified in the app"
+    ]
+  }
+]

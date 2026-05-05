@@ -1,0 +1,162 @@
+[
+  {
+    "schema_version": "1.0",
+    "project_title": "Library Book Borrowing and Reservation System",
+    "actors": [
+      "Member",
+      "Librarian"
+    ],
+    "functional_requirements": [
+      {
+        "id": "FR-01",
+        "statement": "Allow members to search for books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Members can search by title, author, or ISBN",
+          "Search results are displayed within 3 seconds"
+        ]
+      },
+      {
+        "id": "FR-02",
+        "statement": "Allow members to borrow available books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Members can borrow a maximum of five books",
+          "Book status updates to borrowed"
+        ]
+      },
+      {
+        "id": "FR-03",
+        "statement": "Allow members to reserve unavailable books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Reservation is added to member's account",
+          "Members receive notification when book becomes available"
+        ]
+      },
+      {
+        "id": "FR-04",
+        "statement": "Allow members to view their loans, due dates, and reservations",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Dashboard displays current loans and due dates",
+          "Reservation status is visible"
+        ]
+      },
+      {
+        "id": "FR-05",
+        "statement": "Allow librarians to add new books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "New book details are saved to system",
+          "Book appears in search results"
+        ]
+      },
+      {
+        "id": "FR-06",
+        "statement": "Allow librarians to update book records",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Book details can be edited",
+          "Changes reflect in search results immediately"
+        ]
+      },
+      {
+        "id": "FR-07",
+        "statement": "Allow librarians to mark books as borrowed or returned",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Book status is updated accurately",
+          "Borrowing history is recorded"
+        ]
+      },
+      {
+        "id": "FR-08",
+        "statement": "Allow librarians to manage overdue items",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Librarian can view and update overdue items",
+          "Notifications sent to members"
+        ]
+      },
+      {
+        "id": "FR-09",
+        "statement": "Prevent members from borrowing more than five books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "System blocks borrowing if limit exceeded",
+          "Members receive notification if limit is reached"
+        ]
+      },
+      {
+        "id": "FR-10",
+        "statement": "Send notifications for available reservations and overdue books",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Email or SMS notifications are sent to members",
+          "Notifications are sent within 1 hour of status change"
+        ]
+      },
+      {
+        "id": "FR-11",
+        "statement": "Require user authentication",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Users must log in to access their account",
+          "Session management for security"
+        ]
+      },
+      {
+        "id": "FR-12",
+        "statement": "Keep a record of key actions",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Actions like borrowing, returning, reservation updates are logged",
+          "Logs accessible to librarians"
+        ]
+      },
+      {
+        "id": "FR-13",
+        "statement": "Allow only librarians to remove books from the catalogue",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Librarian can successfully delete book record",
+          "Deleted books do not appear in search results"
+        ]
+      }
+    ],
+    "non_functional_requirements": [
+      {
+        "id": "NFR-01",
+        "category": "Performance",
+        "statement": "System should return search results within 3 seconds under normal usage"
+      },
+      {
+        "id": "NFR-02",
+        "category": "Usability",
+        "statement": "The system interface should be intuitive for all user roles"
+      }
+    ],
+    "assumptions": [
+      "Members have valid email addresses for notifications",
+      "Librarians have admin access"
+    ],
+    "clarification_questions": [
+      "What specific user roles need to be defined beyond 'Member' and 'Librarian'?",
+      "What is considered 'normal usage' for the system's performance requirements?"
+    ],
+    "glossary": [
+      {
+        "term": "Member",
+        "definition": "An individual with a library account who can borrow and reserve books"
+      },
+      {
+        "term": "Librarian",
+        "definition": "A staff member with permissions to manage the library's catalogue and assist members"
+      }
+    ],
+    "generated_at": "2026-04-05T17:23:41.484Z",
+    "agent": "Requirements Analysis Agent (UC-A1-01)",
+    "prototype_stack": "n8n + Function nodes + OpenAI (AgentKit-extensible)"
+  }
+]

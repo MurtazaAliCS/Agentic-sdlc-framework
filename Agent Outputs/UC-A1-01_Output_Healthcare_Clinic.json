@@ -1,0 +1,115 @@
+[
+  {
+    "schema_version": "1.0",
+    "project_title": "Clinic Appointment and Triage Support System",
+    "actors": [
+      "Patient",
+      "Receptionist",
+      "Clinician"
+    ],
+    "functional_requirements": [
+      {
+        "id": "FR-01",
+        "statement": "Patients can request an appointment by providing necessary details.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Patients can submit name, NHS number, date of birth, preferred date/time, visit reason.",
+          "System prevents duplicate appointment requests for the same patient within the same day."
+        ]
+      },
+      {
+        "id": "FR-02",
+        "statement": "Reception staff can view and manage appointment requests.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Receptionists can view all appointment requests.",
+          "Receptionists can confirm or reschedule an appointment.",
+          "Receptionists can assign clinicians to appointments."
+        ]
+      },
+      {
+        "id": "FR-03",
+        "statement": "Clinicians can manage triage notes and mark urgency.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Clinicians can record triage notes.",
+          "Clinicians can mark cases as urgent or routine."
+        ]
+      },
+      {
+        "id": "FR-04",
+        "statement": "Appointment outcomes can be updated.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Clinicians can update appointment outcome as Seen, Follow-up Required, Cancelled, Did Not Attend."
+        ]
+      },
+      {
+        "id": "FR-05",
+        "statement": "Patients receive notifications regarding appointment status.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Notifications sent when an appointment is confirmed, rescheduled, or cancelled."
+        ]
+      },
+      {
+        "id": "FR-06",
+        "statement": "The system maintains an audit log of key actions.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Audit log includes request created, appointment confirmed/rescheduled/cancelled, clinician assigned, triage notes added, urgency changed, outcome updated."
+        ]
+      },
+      {
+        "id": "FR-07",
+        "statement": "System provides role-based authentication.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Users authenticate as Patients, Receptionists, or Clinicians.",
+          "Access to patient information is restricted by role."
+        ]
+      },
+      {
+        "id": "FR-08",
+        "statement": "System validates required fields and NHS numbers.",
+        "priority": "Must",
+        "acceptance_criteria": [
+          "Empty or invalid NHS numbers are rejected during appointment requests."
+        ]
+      }
+    ],
+    "non_functional_requirements": [
+      {
+        "id": "NFR-01",
+        "category": "Performance",
+        "statement": "System responds within 2 seconds for viewing today’s appointment list under normal clinic load."
+      },
+      {
+        "id": "NFR-02",
+        "category": "Security",
+        "statement": "Data must be stored securely."
+      }
+    ],
+    "assumptions": [
+      "Assume normal clinic load is defined by usual patient volume.",
+      "System will connect to a secure, existing patient database for validation."
+    ],
+    "clarification_questions": [
+      "What is the normal clinic load in terms of patient volume per day?",
+      "What are the specific security measures required for data storage?"
+    ],
+    "glossary": [
+      {
+        "term": "NHS Number",
+        "definition": "A unique identifier used for patients within the UK National Health Service."
+      },
+      {
+        "term": "Triage",
+        "definition": "The process by which the urgency of patient treatment is determined."
+      }
+    ],
+    "generated_at": "2026-01-08T18:22:42.275Z",
+    "agent": "Requirements Analysis Agent (UC-A1-01)",
+    "prototype_stack": "n8n + Function nodes + OpenAI (AgentKit-extensible)"
+  }
+]
